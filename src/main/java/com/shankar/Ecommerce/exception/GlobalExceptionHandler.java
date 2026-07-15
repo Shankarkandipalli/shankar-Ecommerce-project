@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
 
     }
 
-    @ExceptionHandler(InvlidCredentialsException.class)
-    public ResponseEntity<ApiResponse<?>> handlerInvlidCredentialsException(InvlidCredentialsException ex) {
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ApiResponse<?>> handlerInvalidCredentialsException(InvalidCredentialsException ex) {
         ApiResponse<?> errorResponse = ApiResponse.builder().status(HttpStatus.BAD_REQUEST.value()).message(ex.getMessage()).build();
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 

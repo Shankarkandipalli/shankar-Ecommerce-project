@@ -1,5 +1,6 @@
 package com.shankar.Ecommerce.entites;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "categorys")
+@Table(name = "category")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
