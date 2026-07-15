@@ -7,6 +7,7 @@ import lombok.Builder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ApiResponse<T>(int status,
                              String message,
-                             T data) {
+                             T data,String token,String expirationTime,String role) {
+
 
 }

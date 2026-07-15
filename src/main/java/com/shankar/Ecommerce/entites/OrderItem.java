@@ -1,5 +1,6 @@
 package com.shankar.Ecommerce.entites;
 
+import com.shankar.Ecommerce.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
