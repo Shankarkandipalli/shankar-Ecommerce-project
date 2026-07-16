@@ -23,7 +23,7 @@ public class UserController {
         return  ResponseEntity.ok(userService.getAllUsers());
 
     }
-    @GetMapping("/my-info")
+    @GetMapping("/myinfo")
     public ResponseEntity<ApiResponse<?>>getUserInfoAndOrderHistory(){
         return  ResponseEntity.ok(userService.getUserInfoAndOrderHistory());
 
