@@ -27,33 +27,48 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain)
+            throws ServletException, IOException {
 
         String token = getTokenFromRequest(request);
 
-        if (token != null){
+        log.info("Authorization Header: {}", request.getHeader("Authorization"));
+        log.info("Extracted Token: {}", token);
+
+        if (token != null) {
+
             String username = jwtUtils.getUsernameFromToken(token);
+            log.info("Username From Token: {}", username);
 
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
-            if (StringUtils.hasText(username) && jwtUtils.isTokenValid(token, userDetails)){
-                log.info("VALID JWT FOR {}", username);
+            log.info("Authorities: {}", userDetails.getAuthorities());
 
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities()
-                );
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            if (jwtUtils.isTokenValid(token, userDetails)) {
 
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities());
+
+                authentication.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                log.info("Authentication Successfully Set");
             }
-
         }
+
         filterChain.doFilter(request, response);
     }
-
     private String getTokenFromRequest(HttpServletRequest request){
         String token = request.getHeader("Authorization");
-        if (StringUtils.hasText(token) && StringUtils.startsWithIgnoreCase(token, "Bearer ")){
+        if (StringUtils.hasText(token)
+                && StringUtils.startsWithIgnoreCase(token, "Bearer ")) {
             return token.substring(7);
         }
         return null;
