@@ -2,10 +2,7 @@ package com.shankar.Ecommerce.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.*;
-import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +21,6 @@ public class ProductDTO {
     private String description;
     private String imageUrl;
     private BigDecimal price;
-    private CategoryDTO categorys;
+    private CategoryDTO categories;
     private LocalDateTime createdAt;
 }
