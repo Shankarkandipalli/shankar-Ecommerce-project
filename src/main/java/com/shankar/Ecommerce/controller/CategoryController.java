@@ -6,6 +6,7 @@ import com.shankar.Ecommerce.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{categoryId}/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ApiResponse<?>> deleteCategory(@PathVariable Long categoryId) {
         ApiResponse<?> addCategorys = categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(addCategorys, HttpStatus.OK);
