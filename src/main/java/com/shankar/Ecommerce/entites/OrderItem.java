@@ -23,6 +23,7 @@ public class OrderItem {
     private Long id;
     private int quantity;
     private BigDecimal price;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
