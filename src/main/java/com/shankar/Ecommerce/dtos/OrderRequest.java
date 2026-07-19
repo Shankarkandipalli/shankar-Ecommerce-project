@@ -1,5 +1,6 @@
 package com.shankar.Ecommerce.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.shankar.Ecommerce.entites.Payment;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderRequest {
 
     private BigDecimal totalPrice;

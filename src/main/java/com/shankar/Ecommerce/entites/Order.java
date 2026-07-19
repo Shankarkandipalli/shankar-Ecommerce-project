@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "orders")
@@ -21,8 +22,13 @@ public class Order {
     private Long id;
     private BigDecimal totalPrice;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<OrderItem> orderItems;
+    @OneToMany(
+            mappedBy = "order",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column(name = "created_at")
     private final LocalDateTime createdAt=LocalDateTime.now();
